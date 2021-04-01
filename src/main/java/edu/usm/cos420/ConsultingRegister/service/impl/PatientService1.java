@@ -81,6 +81,7 @@ public class PatientService1 implements PatientService {
 	@Override
 	public Patient getPatient(Long ID) {
 		// TODO Auto-generated method stub
+		
 		return dao.find(ID);
 	}
 	
