@@ -109,16 +109,21 @@ public class PatientSearchHandler {
 			newSearchPanel.setSize(size);
 			rec = new String[size][4];
 			newSearchPanel.setRec(rec);
-			for (int i = 0; i < size; i++) {
-				// System.out.println(listModel.getElementAt(i));
-				Patient patient = (Patient) newSearchPanel.getListModel().getElementAt(i);
-				rec[i][0] = patient.getId() + "";
-				rec[i][1] = patient.getFirstName();
-				rec[i][2] = patient.getLastName();
-				rec[i][3] = patient.getAddress();
+			try {
+				for (int i = 0; i < size; i++) {
+					// System.out.println(listModel.getElementAt(i));
+					Patient patient = (Patient) newSearchPanel.getListModel().getElementAt(i);
+					rec[i][0] = patient.getId() + "";
+					rec[i][1] = patient.getFirstName();
+					rec[i][2] = patient.getLastName();
+					rec[i][3] = patient.getAddress();
 
-				// System.out.println(rec[0][1]);
+					// System.out.println(rec[0][1]);
+				}
+			} catch (Exception exception) {
+				JOptionPane.showMessageDialog(newSearchPanel, "ID not found", "ERROR", JOptionPane.ERROR_MESSAGE);
 			}
+
 			newSearchPanel.setRec(rec);
 			newSearchPanel.setTable(new JTable(rec, newSearchPanel.getCol()));
 			JTableHeader header = newSearchPanel.getTable().getTableHeader();
@@ -131,7 +136,7 @@ public class PatientSearchHandler {
 						JTable target = (JTable) me.getSource();
 						int row = target.getSelectedRow(); // select a row
 						// int column = target.getSelectedColumn(); // select a column
-						JOptionPane.showInternalMessageDialog(null,
+						JOptionPane.showInternalMessageDialog(newSearchPanel,
 								"ID Number = " + newSearchPanel.getTable().getValueAt(row, 0) + "\n" + "Name = "
 										+ newSearchPanel.getTable().getValueAt(row, 1)
 										+ newSearchPanel.getTable().getValueAt(row, 2) + "\n" + "Address = "
